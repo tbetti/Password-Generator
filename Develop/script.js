@@ -12,7 +12,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  
+
   // Reset pwordChar array so a new password can be generated
   pwordChar = [];
 }
@@ -25,8 +25,8 @@ function generatePassword(){
   var passwordLength = prompt("Length of Password: ", "type a number between 8 and 128");
   
   // Check if password is appropriate length
-  if (passwordLength < 8 && passwordLength > 128){
-    window.prompt("Invalid length.", "type a number between 8 and 128"); // this no longer works???
+  if (passwordLength < 8 || passwordLength > 128){
+    window.alert("Invalid length. Generate password again");
   } else {
     window.alert("Your password will be " + passwordLength + " characters long");
     promptCriteria();
