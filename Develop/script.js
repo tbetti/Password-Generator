@@ -19,18 +19,26 @@ generateBtn.addEventListener("click", writePassword);
 
 var pwordChar = [];
 
-// Prompt user for password criteria
+// Prompt user for password length and generate password
 function generatePassword(){
   var passwordLength = prompt("Length of Password: ", "type a number between 8 and 128");
-  
+  // Check if password is appropriate length
   if (passwordLength <= 8 && passwordLength >= 128){
     window.prompt("Invalid length.", "type a number between 8 and 128");
   } else {
     window.alert("Your password will be " + passwordLength + " characters long");
     promptCriteria();
+    var password = []
+    for (var i=0; i < passwordLength; i++){
+      var index = Math.floor(Math.random() * pwordChar.length); // double check this
+      password[i] = pwordChar[index];
+    }
+    password = password.join("");
+    return password;
   }
 }
 
+// Prompt user for password criteria
 function promptCriteria(){
   if (window.confirm("Will your password need lowercase letters?")){
     pwordChar = pwordChar.concat(alphabetLower);
@@ -48,12 +56,4 @@ function promptCriteria(){
 }
 
 console.log(password);
-/* Possible functions
-  _patterns:
-  Math.random().toString(i)
 
-
-  Notes:
-  create array for all options then maybe concat options
-  However, I have to make sure they have needed characters
-*/
