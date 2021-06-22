@@ -16,39 +16,36 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-  // This makes it so when you click the button, it
-  // runs the writePassword function.  However, you 
-  // can't do that right now because the generatePassword
-  // function is not defined
 
-// Prompt user for password length
-var password = {
-  upperCase:[],
-  lowerCase: [],
-  includeNumber: [],
-  includeSpecChar: []
-};
+var pwordChar = [];
+
+// Prompt user for password criteria
 function generatePassword(){
   var passwordLength = prompt("Length of Password: ", "type a number between 8 and 128");
+  
   if (passwordLength <= 8 && passwordLength >= 128){
     window.prompt("Invalid length.", "type a number between 8 and 128");
   } else {
     window.alert("Your password will be " + passwordLength + " characters long");
-    if (window.confirm("Will your password need lowercase letters?")){
-      password.lowerCase.push(alphabetLower);
-    }
-    if (window.confirm("Will your password need uppercase letters?")){
-      password.upperCase.push(alphabetUpper);
-    }
-    if (window.confirm("Will you password need at least one numeric value?")){
-      password.includeNumber.push(numeric);
-    }
-    if (window.confirm("Will your password need at least one special character?")){
-      password.includeSpecChar.push(specChar);
-    }
+    promptCriteria();
   }
 }
 
+function promptCriteria(){
+  if (window.confirm("Will your password need lowercase letters?")){
+    pwordChar = pwordChar.concat(alphabetLower);
+  }
+  if (window.confirm("Will your password need uppercase letters?")){
+    pwordChar = pwordChar.concat(alphabetUpper);
+  }
+  if (window.confirm("Will you password need at least one numeric value?")){
+    pwordChar = pwordChar.concat(numeric);
+  }
+  if (window.confirm("Will your password need at least one special character?")){
+    pwordChar = pwordChar.concat(specChar);
+  }
+  return pwordChar;
+}
 
 console.log(password);
 /* Possible functions
