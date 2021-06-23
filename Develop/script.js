@@ -10,6 +10,7 @@ var specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "{", "[", "]",
 // Holder arrays
 var pwordChar = [];
 var guaranteedChararr = [];
+var criteria = [];
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
@@ -26,6 +27,7 @@ function writePassword() {
   // Reset arrays so a new password can be generated
   pwordChar = [];
   guaranteedChararr = [];
+  criteria= [];
 }
 
 // Prompt user for password length and generate password
@@ -38,9 +40,12 @@ function generatePassword(){
   } else if (passwordLength < 8 || passwordLength > 128){
     window.alert("Invalid length. Generate password again.");
   } else {
-    window.alert("Your password will be " + passwordLength + " characters long");
     var options = promptCriteria();
     
+    // Validate user input
+    if (criteria.length !==0) {
+      window.alert("Your password will be " + passwordLength + " characters long and include the following: \n- " + criteria.join("\n- "));
+    }
     // Create password based on user criteria
     var password = [];
     for (var i=options.guaranteedChararr.length; i < passwordLength; i++){
@@ -64,21 +69,25 @@ function promptCriteria(){
     pwordChar = pwordChar.concat(alphabetLower);
     guaranteedChar = alphabetLower[Math.floor(Math.random() * alphabetLower.length)];
     guaranteedChararr.push(guaranteedChar);
+    criteria.push("lowercase letters");
   }
   if (window.confirm("Will your password need uppercase letters?")){
     pwordChar = pwordChar.concat(alphabetUpper);
     guaranteedChar = alphabetUpper[Math.floor(Math.random() * alphabetUpper.length)];
     guaranteedChararr.push(guaranteedChar);
+    criteria.push("uppercase letters");
   }
   if (window.confirm("Will you password need at least one numeric value?")){
     pwordChar = pwordChar.concat(numeric);
     guaranteedChar = numeric[Math.floor(Math.random() * numeric.length)];
     guaranteedChararr.push(guaranteedChar);
+    criteria.push("numeric values");
   }
   if (window.confirm("Will your password need at least one special character?")){
     pwordChar = pwordChar.concat(specChar);
     guaranteedChar = specChar[Math.floor(Math.random() * specChar.length)];
     guaranteedChararr.push(guaranteedChar);
+    criteria.push("special characters");
   }
   if (pwordChar.length===0){
     alert("Please choose at least one character type");
@@ -88,7 +97,8 @@ function promptCriteria(){
   // Create object to return two values
   var object={
     pwordChar,
-    guaranteedChararr
+    guaranteedChararr,
+    criteria
   };
 
   return object;
